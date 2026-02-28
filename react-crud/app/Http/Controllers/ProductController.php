@@ -12,8 +12,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-
-      dd("hello");
+        $products = Product::all();
+        return inertia('products/index', compact('products'));
+    
     }
 
     /**
