@@ -25,7 +25,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Manage Products',
-        href: products(),
+        href: '/products',
         icon: ShoppingCart,
     },
 ];
