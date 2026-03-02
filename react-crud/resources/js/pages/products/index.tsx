@@ -16,7 +16,7 @@ export default function Index() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Manegment" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <Link className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600" as='button' href={'products.create'}>
+                <Link className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600" as='button' href={'products/create'}>
                   Add Product
                 </Link> 
                 <div className='overflow-hidden rounded-lg border'>

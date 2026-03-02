@@ -22,7 +22,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        
+        dd('create');
+        // return inertia('products/create');
+
         
     }
 
