@@ -1,79 +1,62 @@
-import { Head, Link } from '@inertiajs/react';
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
-import AppLayout from '@/layouts/app-layout';
-import { dashboard } from '@/routes';
-import type { BreadcrumbItem } from '@/types';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Create Products',
-        href: '/products/create',
-    },
-];
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Button } from "@/components/ui/button"
 
 export default function ProductForm() {
-    return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Product Manegment" />
-            <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-               
-                <div className='overflow-hidden rounded-lg border'>
-                <form className="w-full max-w-lg p-4">
-                    <div className="mb-4">
-                        <label className="mb-2 block text-gray-700" htmlFor="name">
-                            Name
-                        </label>
-                        <input
-                            className="w-full rounded border px-3 py-2 leading-tight text-gray-700 focus:outline-none focus:shadow-outline"
-                            id="name"
-                            type="text"
-                            placeholder="Product Name"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="mb-2 block text-gray-700" htmlFor="description">
-                            Description
-                        </label>
-                        <textarea   
-                            className="w-full rounded border px-3 py-2 leading-tight text-gray-700 focus:outline-none focus:shadow-outline"
-                            id="description"
-                            placeholder="Product Description"
-                        />
-                    </div>
-                    <div className="mb-4">  
-                        <label className="mb-2 block text-gray-700" htmlFor="price">
-                            Price
-                        </label>
-                        <input
-                            className="w-full rounded border px-3 py-2 leading-tight text-gray-700 focus:outline-none focus:shadow-outline"
-                            id="price"  
-                            type="number"
-                            placeholder="Product Price"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="mb-2 block text-gray-700" htmlFor="featured_image">
-                            Featured Image
-                        </label>
-                        <input
+  return (
+    <div className="flex justify-center p-6">
+      <Card className="w-full max-w-2xl shadow-lg rounded-2xl">
+        <CardHeader>
+          <CardTitle className="text-xl font-semibold">
+            Create Product
+          </CardTitle>
+        </CardHeader>
 
-                            className="w-full rounded border px-3 py-2 leading-tight text-gray-700 focus:outline-none focus:shadow-outline"
-                            id="featured_image"
-                            type="file"
-                            placeholder="Product Featured Image"
-                        />
-                    </div>
-                    <div className="flex items-center justify-between">
-                        <button
-                            className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                            type="button"
-                        >
-                            Create Product
-                        </button>
-                    </div>
-                </form>
-                </div>
-            </div>
-        </AppLayout>
-    );
+        <CardContent className="space-y-6">
+          
+          {/* Name */}
+          <div className="space-y-2">
+            <Label htmlFor="name">Product Name</Label>
+            <Input id="name" placeholder="Enter product name" />
+          </div>
+
+          {/* Description */}
+          <div className="space-y-2">
+            <Label htmlFor="description">Description</Label>
+            <Textarea
+              id="description"
+              placeholder="Enter product description"
+              className="min-h-[100px]"
+            />
+          </div>
+
+          {/* Price */}
+          <div className="space-y-2">
+            <Label htmlFor="price">Price</Label>
+            <Input id="price" type="number" placeholder="Enter price" />
+          </div>
+
+          {/* Featured Image */}
+          <div className="space-y-2">
+            <Label htmlFor="image">Featured Image</Label>
+            <Input id="image" type="file" />
+          </div>
+
+          {/* Created Date */}
+          <div className="space-y-2">
+            <Label htmlFor="date">Created Date</Label>
+            <Input id="date" type="date" />
+          </div>
+
+          {/* Submit Button */}
+          <Button className="w-full">
+            Create Product
+          </Button>
+
+        </CardContent>
+      </Card>
+    </div>
+  )
 }
