@@ -32,9 +32,9 @@ export default function ProductForm() {
                         <CardTitle className="text-2xl font-semibold">
                             Create Product
                         </CardTitle>
-                        <CardDescription>
+                        {/* <CardDescription>
                             Create a new product
-                        </CardDescription>
+                        </CardDescription> */}
                     </CardHeader>
 
                     <CardContent>
@@ -77,6 +77,7 @@ export default function ProductForm() {
                                 </Label>
                                 <Input id="image" type="file" />
                             </div>
+                            
 
                             {/* Created Date */}
                             <div className="space-y-2">
