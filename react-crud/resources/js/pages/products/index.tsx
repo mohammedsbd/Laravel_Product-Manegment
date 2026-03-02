@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
@@ -16,6 +16,10 @@ export default function Index() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Manegment" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+                <Link href={dashboard()}>
+                    <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Create Product</button>
+                </Link>
+                <div className='overflow-hidden rounded-lg border'>
                 <table className="w-full table-auto border-separate border-spacing-x-6 border-spacing-y-3">
                     <thead>
                         <tr>
@@ -54,6 +58,7 @@ export default function Index() {
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </AppLayout>
     );
