@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import {
@@ -32,6 +32,10 @@ export default function ProductForm() {
                         <CardTitle className="text-2xl font-semibold">
                             Create Product
                         </CardTitle>
+
+                        <Link href="/products" className="text-blue-500">
+                           <Button variant="outline">Back to Products</Button>
+                        </Link>
                         {/* <CardDescription>
                             Create a new product
                         </CardDescription> */}
