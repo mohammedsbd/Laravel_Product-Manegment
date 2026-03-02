@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import {
@@ -15,27 +15,48 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 
 const breadcrumbs: BreadcrumbItem[] = [
+
+   
     {
         title: 'Create Products',
         href: '/products/create',
     },
 ];
 
+
+
 export default function ProductForm() {
+
+
+
+
+    const {data, setData, post, processing, errors, reset} = useForm({
+        name: '',
+        description: '',
+        price: '',
+        featured_image: null as File | null,
+      
+    })
+
     return (
+
+
+
+
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Management" />
 
             <div className="flex h-full flex-1 flex-col gap-6 rounded-xl p-6">
+                  <Link href="/products" className="text-blue-500 flex items-center gap-2 bg-gray-50 p-2 rounded ">
+                           <Button variant="outline">Back to Products</Button>
+                        </Link>
                 <Card className="max-w-3xl">
                     <CardHeader>
                         <CardTitle className="text-2xl font-semibold">
                             Create Product
                         </CardTitle>
 
-                        <Link href="/products" className="text-blue-500">
-                           <Button variant="outline">Back to Products</Button>
-                        </Link>
+                      
                         {/* <CardDescription>
                             Create a new product
                         </CardDescription> */}
@@ -47,6 +68,8 @@ export default function ProductForm() {
                             <div className="space-y-2">
                                 <Label htmlFor="name">Product Name</Label>
                                 <Input
+                                    value={data.name}
+                                    onChange={(e) => setData('name', e.target.value)}
                                     id="name"
                                     placeholder="Enter product name"
                                 />
@@ -58,6 +81,8 @@ export default function ProductForm() {
                                     Description
                                 </Label>
                                 <Textarea
+                                    value={data.description}
+                                    onChange={(e) => setData('description', e.target.value)}
                                     id="description"
                                     placeholder="Enter product description"
                                     className="min-h-[100px]"
@@ -68,6 +93,8 @@ export default function ProductForm() {
                             <div className="space-y-2">
                                 <Label htmlFor="price">Price</Label>
                                 <Input
+                                    value={data.price}
+                                    onChange={(e) => setData('price', e.target.value)}
                                     id="price"
                                     type="number"
                                     placeholder="Enter product price"
@@ -79,17 +106,17 @@ export default function ProductForm() {
                                 <Label htmlFor="image">
                                     Featured Image
                                 </Label>
-                                <Input id="image" type="file" />
+                                <Input onChange={(e) => setData('featured_image', e.target.files?.[0] || null)} id="featured_image" type="file" />
                             </div>
                             
 
-                            {/* Created Date */}
+                            {/* Created Date
                             <div className="space-y-2">
                                 <Label htmlFor="created_date">
                                     Created Date
                                 </Label>
                                 <Input id="created_date" type="date" />
-                            </div>
+                            </div> */}
                         </form>
                     </CardContent>
 
