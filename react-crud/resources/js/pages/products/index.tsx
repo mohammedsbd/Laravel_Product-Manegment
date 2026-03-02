@@ -18,7 +18,7 @@ export default function Index() {
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <table className="w-full table-auto border-separate border-spacing-x-6 border-spacing-y-3">
                     <thead>
-                        <tr className='bg-black text-white'>
+                        <tr >
                             <th className='p-4'>#</th>
                             <th className='p-4'>Name</th>
                             <th className='p-4'>Description</th>
@@ -28,7 +28,19 @@ export default function Index() {
                             <th className='p-4'>Action</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr>
+                            <td className='p-4 border'>1</td>
+                            <td className='p-4 border'>Product 1</td>
+                            <td className='p-4 border'>product 2</td>
+                            <td className='p-4 border'>$100</td>
+                            <td className='p-4 border'>image.jpg</td>
+                            <td className='p-4 border'>2024-06-01</td>
+                            <td className='p-4 border'>image.jpg</td>
+                         
+                            
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </AppLayout>
