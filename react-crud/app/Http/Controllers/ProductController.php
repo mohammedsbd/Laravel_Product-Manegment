@@ -15,7 +15,6 @@ class ProductController extends Controller
     {
         $products = Product::all();
         return inertia('products/index', compact('products'));
-    
     }
 
     /**
@@ -23,10 +22,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-       
         return inertia('products/product-form');
-
-        
     }
 
     /**
@@ -34,55 +30,63 @@ class ProductController extends Controller
      */
     public function store(ProductFormRequest $request)
     {
-        $featuredImage = null;
+        try {
 
-       if($request->file('featured_image')){
-          $featuredImage = $request->file('featured_image');
-          $featuredImageOriginalName = $featuredImage->getClientOriginalName();
-          $featuredImage-> $featuredImage->store('products', 'public');
-       }
+            $filename = null;
+            $featuredImageOriginalName = null;
 
-       $product = Product::create([
-           'name' => $request->name,
-           'description' => $request->description,
-           'price' => $request->price,
-           'featured_image' => $filename,
-           'featured_image_original_name' => $featuredImageOriginalName,
-       ]);
-     if($product){
-        return redirect()->route('products.index')->with('success', 'Product created successfully');
-     }
+            if ($request->hasFile('featured_image')) {
 
-     return redirect()->back()->with('error', 'Failed to create product');
+                $featuredImage = $request->file('featured_image');
+
+                // Get original name
+                $featuredImageOriginalName = $featuredImage->getClientOriginalName();
+
+                // Store file and get path
+                $filename = $featuredImage->store('products', 'public');
+            }
+
+            $product = Product::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'featured_image' => $filename,
+                'featured_image_original_name' => $featuredImageOriginalName,
+            ]);
+
+            if ($product) {
+                return redirect()
+                    ->route('products.index')
+                    ->with('success', 'Product created successfully');
+            }
+
+            return redirect()
+                ->back()
+                ->with('error', 'Failed to create product');
+
+        } catch (\Throwable $th) {
+
+            return redirect()
+                ->back()
+                ->with('error', $th->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Product $product)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Product $product)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Product $product)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
         //
