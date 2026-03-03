@@ -15,6 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { CloudCog } from 'lucide-react';
 import { FormEvent } from "react";
+import InputError from '@/components/input-error';  
 
 const breadcrumbs: BreadcrumbItem[] = [
 
@@ -88,6 +89,7 @@ export default function ProductForm() {
                                     id="name"
                                     placeholder="Enter product name"
                                 />
+                                <InputError message={errors.name} />
                             </div>
 
                             {/* Description */}
@@ -102,6 +104,7 @@ export default function ProductForm() {
                                     placeholder="Enter product description"
                                     className="min-h-[100px]"
                                 />
+                                <InputError message={errors.description} />
                             </div>
 
                             {/* Price */}
@@ -114,6 +117,7 @@ export default function ProductForm() {
                                     type="number"
                                     placeholder="Enter product price"
                                 />
+                                <InputError message={errors.price} />
                             </div>
 
                             {/* Featured Image */}
@@ -122,6 +126,7 @@ export default function ProductForm() {
                                     Featured Image
                                 </Label>
                                 <Input onChange={(e) => setData('featured_image', e.target.files?.[0] || null)} id="featured_image" type="file" />
+                                <InputError message={errors.featured_image} />
                             </div>
                             
 

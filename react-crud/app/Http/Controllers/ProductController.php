@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductFormRequest;
 
 class ProductController extends Controller
 {
@@ -31,9 +32,11 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductFormRequest $request)
     {
-        dd($request->all());
+
+        $validated = $request->validated();
+        
         // $request->validate([
         //     'name' => 'required',
         //     'description' => 'required',
