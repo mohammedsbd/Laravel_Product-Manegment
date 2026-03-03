@@ -34,11 +34,12 @@ class ProductController extends Controller
      */
     public function store(ProductFormRequest $request)
     {
+        $featuredImage = null;
 
        if($request->file('featured_image')){
           $featuredImage = $request->file('featured_image');
           $featuredImageOriginalName = $featuredImage->getClientOriginalName();
-          $featuredImage->store('products', 'public');
+          $featuredImage-> $featuredImage->store('products', 'public');
        }
 
        $product = Product::create([
