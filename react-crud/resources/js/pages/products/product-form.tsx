@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { CloudCog } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
 
@@ -37,6 +38,14 @@ export default function ProductForm() {
         featured_image: null as File | null,
       
     })
+
+   
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+         console.log(data)
+        // post('/products', data);
+    }
 
     return (
 
@@ -63,7 +72,7 @@ export default function ProductForm() {
                     </CardHeader>
 
                     <CardContent>
-                        <form className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             {/* Name */}
                             <div className="space-y-2">
                                 <Label htmlFor="name">Product Name</Label>
@@ -124,7 +133,7 @@ export default function ProductForm() {
                         <Button variant="outline" type="button">
                             Cancel
                         </Button>
-                        <Button type="submit">
+                        <Button  type="submit">
                             Save Product
                         </Button>
                     </CardFooter>
