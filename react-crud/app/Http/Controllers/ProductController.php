@@ -47,10 +47,13 @@ class ProductController extends Controller
            'description' => $request->description,
            'price' => $request->price,
            'featured_image' => $filename,
+           'featured_image_original_name' => $featuredImageOriginalName,
        ]);
-       return redirect()->route('products.index');
+     if($product){
+        return redirect()->route('products.index')->with('success', 'Product created successfully');
+     }
 
-
+     return redirect()->back()->with('error', 'Failed to create product');
     }
 
     /**
