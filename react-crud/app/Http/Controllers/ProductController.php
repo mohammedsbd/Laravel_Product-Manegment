@@ -35,18 +35,21 @@ class ProductController extends Controller
     public function store(ProductFormRequest $request)
     {
 
-        $validated = $request->validated();
-        
-        // $request->validate([
-        //     'name' => 'required',
-        //     'description' => 'required',
-        //     'price' => 'required',
-        //     'featured_image' => 'required',
-        // ]);
+       if($request->file('featured_image')){
+          $featuredImage = $request->file('featured_image');
+          $featuredImageOriginalName = $featuredImage->getClientOriginalName();
+          $featuredImage->store('products', 'public');
+       }
 
-        // $product = Product::create($request->all());
+       $product = Product::create([
+           'name' => $request->name,
+           'description' => $request->description,
+           'price' => $request->price,
+           'featured_image' => $filename,
+       ]);
+       return redirect()->route('products.index');
 
-        // return redirect()->route('products.index');
+
     }
 
     /**
