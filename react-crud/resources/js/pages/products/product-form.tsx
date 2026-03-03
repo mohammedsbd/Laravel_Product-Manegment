@@ -41,6 +41,13 @@ export default function ProductForm() {
       
     })
 
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+          setData('featured_image', file);
+        }
+      };
+
    
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -125,7 +132,7 @@ export default function ProductForm() {
                                 <Label htmlFor="image">
                                     Featured Image
                                 </Label>
-                                <Input onChange={(e) => setData('featured_image', e.target.files?.[0] || null)} id="featured_image" type="file" />
+                                <Input onChange={handleFileUpload} id="featured_image" type="file" />
                                 <InputError message={errors.featured_image} />
                             </div>
                             
