@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
@@ -12,6 +12,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Index() {
+
+    console.log(usePage);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Manegment" />
