@@ -39,11 +39,11 @@ type ProductFormProps = {
 };
 
 export default function ProductForm({...props  }) {
-    const { product, isView } = props;
+    const { product, isView,isEdit } = props;
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: 'Create Products',
-            href: '/products/create',
+            title: isView ? 'View Product' : isEdit ? 'Edit Product' : 'Create Products',
+            href: isView ? `/products/${product?.id}` : '/products/create',
         },
     ];
     const { data, setData, post, processing, errors, reset } = useForm<ProductFormData>({
@@ -72,24 +72,26 @@ export default function ProductForm({...props  }) {
     };
 
     return (
-
-
-
-
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Management" />
 
             <div className="flex h-full flex-1 flex-col gap-6 rounded-xl p-6">
-                  <Link href="/products" className="text-blue-500 flex items-center gap-2 bg-gray-50 p-2 rounded ">
-                           <Button variant="outline">Back to Products</Button>
-                        </Link>
+                <Link
+                    href="/products"
+                    className="flex items-center gap-2 rounded bg-gray-50 p-2 text-blue-500"
+                >
+                    <Button variant="outline">Back to Products</Button>
+                </Link>
                 <Card className="max-w-3xl">
                     <CardHeader>
                         <CardTitle className="text-2xl font-semibold">
-                            Create Product
+                            {isView
+                                ? 'View Product'
+                                : isEdit
+                                  ? 'Edit Product'
+                                  : 'Create Products'}
                         </CardTitle>
 
-                      
                         {/* <CardDescription>
                             Create a new product
                         </CardDescription> */}
@@ -102,24 +104,28 @@ export default function ProductForm({...props  }) {
                                 <Label htmlFor="name">Product Name</Label>
                                 <Input
                                     value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('name', e.target.value)
+                                    }
                                     id="name"
                                     placeholder="Enter product name"
+                                    disabled={isView || processing}
                                 />
                                 <InputError message={errors.name} />
                             </div>
 
                             {/* Description */}
                             <div className="space-y-2">
-                                <Label htmlFor="description">
-                                    Description
-                                </Label>
+                                <Label htmlFor="description">Description</Label>
                                 <Textarea
                                     value={data.description}
-                                    onChange={(e) => setData('description', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('description', e.target.value)
+                                    }
                                     id="description"
                                     placeholder="Enter product description"
                                     className="min-h-[100px]"
+                                    disabled={isView || processing}
                                 />
                                 <InputError message={errors.description} />
                             </div>
@@ -129,23 +135,33 @@ export default function ProductForm({...props  }) {
                                 <Label htmlFor="price">Price</Label>
                                 <Input
                                     value={data.price}
-                                    onChange={(e) => setData('price', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('price', e.target.value)
+                                    }
                                     id="price"
                                     type="number"
                                     placeholder="Enter product price"
+                                    disabled={isView || processing}
                                 />
                                 <InputError message={errors.price} />
                             </div>
 
                             {/* Featured Image */}
-                            <div className="space-y-2">
-                                <Label htmlFor="image">
-                                    Featured Image
-                                </Label>
-                                <Input onChange={handleFileUpload} id="featured_image" type="file" />
-                                <InputError message={errors.featured_image} />
-                            </div>
-                            
+                            {!isView && (
+                                <div className="space-y-2">
+                                    <Label htmlFor="image">
+                                        Featured Image
+                                    </Label>
+                                    <Input
+                                        onChange={handleFileUpload}
+                                        id="featured_image"
+                                        type="file"
+                                    />
+                                    <InputError
+                                        message={errors.featured_image}
+                                    />
+                                </div>
+                            )}
 
                             {/* Created Date
                             <div className="space-y-2">
