@@ -13,8 +13,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return inertia('products/index', compact('products'));
+        $products = Product::latest()->get();
+      
+        return inertia('products/index', [
+            'products' => $products,
+            
+        ]);
     }
 
     /**

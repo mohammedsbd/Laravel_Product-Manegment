@@ -24,6 +24,16 @@ export default function Index() {
         if (flash?.success || flash?.error) setShowAlert(true);
     }, [flash?.success, flash?.error]);
 
+    useEffect(() => {
+        if (!flash?.success || !showAlert) return;
+
+        const timer = setTimeout(() => {
+            setShowAlert(false);
+        }, 4000);
+
+        return () => clearTimeout(timer);
+    }, [flash?.success, showAlert]);
+
     const alertTitle = flash?.success ? 'Success' : 'Error';
     const alertMessage = flash?.success ?? flash?.error;
     return (
