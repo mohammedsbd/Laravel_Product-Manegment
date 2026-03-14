@@ -22,12 +22,14 @@ interface Product {
     created_at: string;
 }
 
-export default function Index({products}: {products: []}) {
-    console.log(products);
+type PageProps = {
+    products: Product[];
+    flash?: { success?: string; error?: string };
+};
 
-    const { flash } = usePage<{
-        flash?: { success?: string; error?: string };
-    }>().props;
+export default function Index({ products }: PageProps) {
+
+    const { flash } = usePage<PageProps>().props;
 
     const [showAlert, setShowAlert] = useState(false);
 
@@ -82,8 +84,8 @@ export default function Index({products}: {products: []}) {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((product: any) => (
-                                <tr>
+                            {products.map((product: Product) => (
+                                <tr key={product.id}>
                                     <td className="border p-4 px-4 py-2 text-center">
                                         {product.id}
                                     </td>
@@ -97,10 +99,10 @@ export default function Index({products}: {products: []}) {
                                       {product.price}
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                       <img src={`/storage/${product.featured_image}`} alt={product.featured_image_original_name} className="w-10 h-10 object-cover" />
+                                       <img src={product.featured_image} alt={product.featured_image_original_name} className="w-10 h-10 object-cover" />
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                       {product.created_at}
+                                       {new Date(product.created_at).toLocaleDateString()}
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
                                      3
