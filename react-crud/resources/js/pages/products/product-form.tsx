@@ -48,12 +48,13 @@ export default function ProductForm({ product, isView, isEdit }: ProductFormProp
             href: isView ? `/products/${product?.id}` : '/products/create',
         },
     ];
-    const { data, setData, post, processing, errors, reset } = useForm<ProductFormData>({
+    const { data, setData, post, put, processing, errors, reset } = useForm<ProductFormData>({
         name: product?.name ?? '',
         description: product?.description ?? '',
         price: product ? String(product.price) : '',
         featured_image: null as File | null,
     });
+
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -62,15 +63,29 @@ export default function ProductForm({ product, isView, isEdit }: ProductFormProp
         }
     };
 
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        post('/products', {
-            forceFormData: true,
-            onSuccess: () => {
-                reset();
-            },
-        });
+        if (isView) {
+            return;
+        }
+
+        if (isEdit && product) {
+            put(`/products/${product.id}`, {
+                forceFormData: true,
+                onSuccess: () => {
+                    reset();
+                },
+            });
+        } else {
+            post('/products', {
+                forceFormData: true,
+                onSuccess: () => {
+                    reset();
+                },
+            });
+        }
     };
 
     return (
