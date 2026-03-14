@@ -1,4 +1,4 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, usePage, router } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
@@ -49,6 +49,14 @@ export default function Index({ products }: PageProps) {
 
     const alertTitle = flash?.success ? 'Success' : 'Error';
     const alertMessage = flash?.success ?? flash?.error;
+
+    const handleDelete = (id: number) => {
+        if (!window.confirm('Are you sure you want to delete this product?')) {
+            return;
+        }
+
+        router.delete(`/products/${id}`);
+    };
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Manegment" />
@@ -104,10 +112,26 @@ export default function Index({ products }: PageProps) {
                                     <td className="border p-4 px-4 py-2 text-center">
                                        {new Date(product.created_at).toLocaleDateString()}
                                     </td>
-                                    <td className="border p-4 px-4 py-2 text-center">
-                                    <Link href={`/products/${product.id}`} className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600">View</Link>
-                                     <Link href={`/products/${product.id}/edit`} className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Edit</Link>
-                                     <Link href={`/products/${product.id}/delete`} className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">Delete</Link>
+                                    <td className="border p-4 px-4 py-2 text-center space-x-2">
+                                        <Link
+                                            href={`/products/${product.id}`}
+                                            className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+                                        >
+                                            View
+                                        </Link>
+                                        <Link
+                                            href={`/products/${product.id}/edit`}
+                                            className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                                        >
+                                            Edit
+                                        </Link>
+                                        <button
+                                            type="button"
+                                            onClick={() => handleDelete(product.id)}
+                                            className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
