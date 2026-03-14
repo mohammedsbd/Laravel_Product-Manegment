@@ -15,19 +15,22 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index() {
 
-  const { flash } = usePage().props;
+  const { flash } = usePage<{flash: {success: string, error: string}}>().props;
 console.log(flash);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Manegment" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+                {flash.success || flash.error && (
+                    <Alert variant={'default'}>
+                        <AlertTitle>{flash.success ? 'Success' : 'Error'}</AlertTitle>
+                        <AlertDescription>
+                            {flash.success ? 'Product created successfully' : 'Product creation failed'}
+                        </AlertDescription>
+                    </Alert>
+                )}
 
-            <Alert variant={'default'}></Alert>
-                <AlertTitle>Success</AlertTitle>
-                <AlertDescription>
-                    Product created successfully
-                </AlertDescription>
-            </Alert>
+          
                 <Link className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600" as='button' href={'products/create'}>
                   Add Product
                 </Link> 
