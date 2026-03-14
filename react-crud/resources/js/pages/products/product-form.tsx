@@ -7,59 +7,53 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-    CardDescription,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { CloudCog } from 'lucide-react';
-import { FormEvent } from "react";
-import InputError from '@/components/input-error';  
+import { FormEvent, ChangeEvent } from 'react';
+import InputError from '@/components/input-error';
 
 const breadcrumbs: BreadcrumbItem[] = [
-
-   
     {
         title: 'Create Products',
         href: '/products/create',
     },
 ];
 
-
+interface ProductFormData {
+    name: string;
+    description: string;
+    price: string;
+    featured_image: File | null;
+}
 
 export default function ProductForm() {
-
-
-
-
-    const {data, setData, post, processing, errors, reset} = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm<ProductFormData>({
         name: '',
         description: '',
         price: '',
         featured_image: null as File | null,
-      
-    })
+    });
 
-    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-          setData('featured_image', file);
+            setData('featured_image', file);
         }
-      };
-
-   
+    };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  post('/products/', {
-    onSuccess: () => {
-      console.log('Product created successfully');
-      reset();
-    },
-  });
-  console.log(data);
-};
+        e.preventDefault();
+
+        post('/products', {
+            forceFormData: true,
+            onSuccess: () => {
+                reset();
+            },
+        });
+    };
 
     return (
 
@@ -86,7 +80,7 @@ export default function ProductForm() {
                     </CardHeader>
 
                     <CardContent>
-                        <form  className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             {/* Name */}
                             <div className="space-y-2">
                                 <Label htmlFor="name">Product Name</Label>
@@ -151,7 +145,7 @@ export default function ProductForm() {
                         <Button variant="outline" type="button">
                             Cancel
                         </Button>
-                        <Button onClick={handleSubmit} type="submit">
+                        <Button disabled={processing} type="submit">
                             Save Product
                         </Button>
                     </CardFooter>
