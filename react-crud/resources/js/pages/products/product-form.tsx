@@ -43,13 +43,14 @@ type ProductFormProps = {
     product?: Product;
 };
 
-export default function ProductForm({ product }: ProductFormProps) {
-    console.log(product)
+export default function ProductForm({...props  }) {
+    const { product, isView } = props;
+    
     const { data, setData, post, processing, errors, reset } = useForm<ProductFormData>({
         name: product?.name ?? '',
         description: product?.description ?? '',
         price: product ? String(product.price) : '',
-        featured_image: null,
+        featured_image: null as File | null,
     });
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {

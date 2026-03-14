@@ -80,6 +80,7 @@ class ProductController extends Controller
     {
         return inertia('products/product-form', [
             'product' => $product,
+            'isView' => true,
         ]);
     
     }
