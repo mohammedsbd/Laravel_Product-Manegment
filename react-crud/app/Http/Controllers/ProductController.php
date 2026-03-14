@@ -17,7 +17,7 @@ class ProductController extends Controller
       
         return inertia('products/index', [
             'products' => $products,
-            
+
         ]);
     }
 
@@ -78,7 +78,10 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        //
+        return inertia('products/product-form', [
+            'product' => $product,
+        ]);
+    
     }
 
     public function edit(Product $product)
