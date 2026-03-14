@@ -73,27 +73,27 @@ export default function Index({products}: {products: []}) {
                         </thead>
                         <tbody>
                             {products.map((product: any) => (
-                                <tr>
+                                <tr key={product.id}>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                        1
+                                        {product.id}
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                        Product 1
+                                        {product.name}
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                        product 2
+                                       {product.description}
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                        $100
+                                      {product.price}
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                        image.jpg
+                                       <img src={`/storage/${product.featured_image}`} alt={product.featured_image_original_name} className="w-10 h-10 object-cover" />
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                        2024-06-01
+                                       {product.created_at}
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                        image.jpg
+                                     3
                                     </td>
                                 </tr>
                             ))}
