@@ -14,6 +14,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { FormEvent, ChangeEvent } from 'react';
 import InputError from '@/components/input-error';
+import { LoaderCircle } from 'lucide-react';
 
 
 
@@ -186,6 +187,7 @@ export default function ProductForm({...props  }) {
                         {!isView && (
                             
                         <Button disabled={processing} type="submit">
+                            {processing && <LoaderCircle className="w-4 h-4 animate-spin" />}
                             Save Product
                         </Button>
                         )}
