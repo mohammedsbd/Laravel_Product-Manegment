@@ -87,7 +87,10 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        //
+        return inertia('products/product-form', [
+            'product' => $product,
+            'isEdit' => true,
+        ]);
     }
 
     public function update(Request $request, Product $product)

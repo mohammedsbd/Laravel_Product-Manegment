@@ -147,7 +147,7 @@ export default function ProductForm({...props  }) {
                             </div>
 
                             {/* Featured Image */}
-                            {!isView && (
+                            {!isView ?(
                                 <div className="space-y-2">
                                     <Label htmlFor="image">
                                         Featured Image
@@ -161,7 +161,13 @@ export default function ProductForm({...props  }) {
                                         message={errors.featured_image}
                                     />
                                 </div>
-                            )}
+                            ) : ( <div className="space-y-2">
+                                <Label htmlFor="image">
+                                    Current Featured Image
+                                </Label>
+                                <img src={`/storage/${product?.featured_image}`} alt={product?.featured_image_original_name} className="w-10 h-10 object-cover" />
+                            </div> )}
+
 
                             {/* Created Date
                             <div className="space-y-2">
@@ -177,9 +183,12 @@ export default function ProductForm({...props  }) {
                         <Button variant="outline" type="button">
                             Cancel
                         </Button>
+                        {!isView && (
+                            
                         <Button disabled={processing} type="submit">
                             Save Product
                         </Button>
+                        )}
                     </CardFooter>
                 </Card>
             </div>
