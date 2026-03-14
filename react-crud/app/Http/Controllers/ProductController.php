@@ -93,9 +93,32 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(ProductFormRequest $request, Product $product)
     {
-        //
+    try {
+        // Update product fields with validated data from the request
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+
+        // Handle featured image update if a new file is uploaded
+        if ($request->hasFile('featured_image')) {
+            $featuredImage = $request->file('featured_image');
+            $filename = $featuredImage->store('products', 'public');
+            $product->featured_image = $filename;
+            $product->featured_image_original_name = $featuredImage->getClientOriginalName();
+        }
+
+        $product->save();
+
+        return redirect()
+            ->route('products.index')
+            ->with('success', 'Product updated successfully');
+    } catch (\Throwable $th) {
+        return redirect()
+            ->back()
+            ->with('error', $th->getMessage());
+    }
     }
 
     public function destroy(Product $product)
