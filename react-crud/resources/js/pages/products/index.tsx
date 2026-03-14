@@ -105,7 +105,9 @@ export default function Index({ products }: PageProps) {
                                        {new Date(product.created_at).toLocaleDateString()}
                                     </td>
                                     <td className="border p-4 px-4 py-2 text-center">
-                                     3
+                                    <Link href={`/products/${product.id}`} className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600">View</Link>
+                                     <Link href={`/products/${product.id}/edit`} className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Edit</Link>
+                                     <Link href={`/products/${product.id}/delete`} className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">Delete</Link>
                                     </td>
                                 </tr>
                             ))}
