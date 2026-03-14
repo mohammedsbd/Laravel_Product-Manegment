@@ -3,7 +3,7 @@ import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
-import { useState } from 'react';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -15,13 +15,19 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index() {
 
-  const { props } = usePage();
-
-  console.log(props);
+  const { flash } = usePage().props;
+console.log(flash);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Manegment" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+
+            <Alert variant={'default'}></Alert>
+                <AlertTitle>Success</AlertTitle>
+                <AlertDescription>
+                    Product created successfully
+                </AlertDescription>
+            </Alert>
                 <Link className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600" as='button' href={'products/create'}>
                   Add Product
                 </Link> 
