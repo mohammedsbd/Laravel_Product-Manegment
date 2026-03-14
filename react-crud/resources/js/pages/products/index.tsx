@@ -3,6 +3,8 @@ import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
+import { useState } from 'react';
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -13,7 +15,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index() {
 
-    console.log(usePage);
+  const { props } = usePage();
+
+  console.log(props);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Manegment" />
