@@ -29,12 +29,27 @@ interface ProductFormData {
     featured_image: File | null;
 }
 
-export default function ProductForm() {
+interface Product {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    featured_image: string | null;
+    featured_image_original_name: string | null;
+    created_at: string;
+}
+
+type ProductFormProps = {
+    product?: Product;
+};
+
+export default function ProductForm({ product }: ProductFormProps) {
+    console.log(product)
     const { data, setData, post, processing, errors, reset } = useForm<ProductFormData>({
-        name: '',
-        description: '',
-        price: '',
-        featured_image: null as File | null,
+        name: product?.name ?? '',
+        description: product?.description ?? '',
+        price: product ? String(product.price) : '',
+        featured_image: null,
     });
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
