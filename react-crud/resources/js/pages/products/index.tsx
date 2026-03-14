@@ -1,9 +1,8 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
-import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { useState, useEffect } from 'react';
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -15,18 +14,29 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index() {
 
-  const { flash } = usePage<{flash: {success: string, error: string}}>().props;
-console.log(flash);
+    const { flash } = usePage<{
+        flash?: { success?: string; error?: string };
+    }>().props;
+
+    const [showAlert, setShowAlert] = useState(false);
+
+    useEffect(() => {
+        if (flash?.success || flash?.error) setShowAlert(true);
+    }, [flash?.success, flash?.error]);
+
+    const alertTitle = flash?.success ? 'Success' : 'Error';
+    const alertMessage = flash?.success ?? flash?.error;
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product Manegment" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                {flash.success || flash.error && (
-                    <Alert variant={'default'}>
-                        <AlertTitle>{flash.success ? 'Success' : 'Error'}</AlertTitle>
-                        <AlertDescription>
-                            {flash.success ? 'Product created successfully' : 'Product creation failed'}
-                        </AlertDescription>
+                {showAlert && alertMessage && (
+                    <Alert
+                        variant={'default'}
+                        className={`mb-4 w-full text-white ${flash?.success ? 'bg-green-500' : 'bg-red-500'}`}
+                    >
+                        <AlertTitle>{alertTitle}</AlertTitle>
+                        <AlertDescription>{alertMessage}</AlertDescription>
                     </Alert>
                 )}
 
