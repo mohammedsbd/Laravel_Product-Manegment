@@ -12,6 +12,16 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+interface Product {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    featured_image: string;
+    featured_image_original_name: string;
+    created_at: string;
+}
+
 export default function Index({products}: {products: []}) {
     console.log(products);
 
@@ -73,7 +83,7 @@ export default function Index({products}: {products: []}) {
                         </thead>
                         <tbody>
                             {products.map((product: any) => (
-                                <tr key={product.id}>
+                                <tr>
                                     <td className="border p-4 px-4 py-2 text-center">
                                         {product.id}
                                     </td>
