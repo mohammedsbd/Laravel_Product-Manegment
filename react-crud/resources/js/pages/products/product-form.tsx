@@ -15,12 +15,7 @@ import { Button } from '@/components/ui/button';
 import { FormEvent, ChangeEvent } from 'react';
 import InputError from '@/components/input-error';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Create Products',
-        href: '/products/create',
-    },
-];
+
 
 interface ProductFormData {
     name: string;
@@ -45,7 +40,12 @@ type ProductFormProps = {
 
 export default function ProductForm({...props  }) {
     const { product, isView } = props;
-    
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: 'Create Products',
+            href: '/products/create',
+        },
+    ];
     const { data, setData, post, processing, errors, reset } = useForm<ProductFormData>({
         name: product?.name ?? '',
         description: product?.description ?? '',
